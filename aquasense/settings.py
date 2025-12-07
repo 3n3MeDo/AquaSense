@@ -78,14 +78,23 @@ WSGI_APPLICATION = 'aquasense.wsgi.application'
 # ==========================================
 
 import dj_database_url
+import os # تأكد من استيراد os
+
+# ... (باقي إعداداتك)
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='sqlite:///' + str(BASE_DIR / 'db.sqlite3'),
+        # 1. القراءة من متغير البيئة 'DATABASE_URL' (الذي يوفره Railway)
+        # 2. إذا لم يكن 'DATABASE_URL' موجودًا (أي تعمل محليًا)، يستخدم مسار SQLite المحلي.
+        default=os.environ.get(
+            'DATABASE_URL',
+            'sqlite:///' + str(BASE_DIR / 'db.sqlite3')
+        ),
         conn_max_age=600
     )
 }
 
+# ... (باقي إعداداتك)
 # ==========================================
 #             AUTHENTICATION
 # ==========================================
