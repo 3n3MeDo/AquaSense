@@ -1,0 +1,117 @@
+{% extends 'reservations/base.html' %}
+{% load static %}
+
+{% block title %}My Dashboard - AquaSense{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="mb-10">
+            <h1 class="text-3xl font-black text-gray-900 dark:text-white">Welcome back, {{ user.first_name|default:user.username }}!</h1>
+            <p class="mt-2 text-gray-600 dark:text-gray-400">Manage your bookings.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            
+            <!-- Sidebar -->
+            <div class="lg:col-span-1">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <div class="p-6 text-center border-b border-gray-200 dark:border-gray-700">
+                        <div class="relative w-24 h-24 mx-auto mb-4">
+                            {% if user.profile.profile_image %}
+                            <img src="{{ user.profile.profile_image.url }}" alt="Profile" class="w-full h-full rounded-full object-cover ring-4 ring-primary/20">
+                            {% else %}
+                            <div class="w-full h-full rounded-full bg-primary/10 flex items-center justify-center text-primary text-3xl font-bold">
+                                {{ user.username.0|upper }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <h2 class="text-lg font-bold text-gray-900 dark:text-white">{{ user.first_name }} {{ user.last_name }}</h2>
+                        <p class="text-sm text-gray-500">{{ user.email }}</p>
+                    </div>
+                    <nav class="p-4 space-y-1">
+                        <a href="#" class="flex items-center gap-3 px-4 py-3 text-primary bg-primary/5 rounded-lg font-medium">
+                            <span class="material-symbols-outlined">calendar_month</span>
+                            My Bookings
+                        </a>
+                        <a href="{% url 'logout' %}" class="flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-lg transition-colors">
+                            <span class="material-symbols-outlined">logout</span>
+                            Logout
+                        </a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="lg:col-span-3 space-y-6">
+                
+                <!-- Stats -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Bookings</p>
+                        <p class="text-3xl font-black text-gray-900 dark:text-white mt-2">{{ reservations.count }}</p>
+                    </div>
+                </div>
+
+                <!-- Bookings List -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">Your Adventures</h3>
+                    </div>
+                    <div class="divide-y divide-gray-200 dark:divide-gray-700">
+                        {% for reservation in reservations %}
+                        <div class="p-6 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                            <div class="flex flex-col md:flex-row gap-6">
+                                <img src="{{ reservation.course.image.url }}" alt="{{ reservation.course.title }}" class="w-full md:w-48 h-32 object-cover rounded-lg">
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <h4 class="text-xl font-bold text-gray-900 dark:text-white">{{ reservation.course.title }}</h4>
+                                            <p class="text-sm text-gray-500 mt-1">Booked on {{ reservation.booking_date|date:"F d, Y" }}</p>
+                                        </div>
+                                        <span class="px-3 py-1 text-sm font-medium rounded-full 
+                                            {% if reservation.status == 'Confirmed' %} bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400
+                                            {% elif reservation.status == 'Pending' %} bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400
+                                            {% else %} bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300 {% endif %}">
+                                            {{ reservation.status }}
+                                        </span>
+                                    </div>
+                                    <div class="mt-4 flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400">
+                                        <div class="flex items-center gap-2">
+                                            <span class="material-symbols-outlined text-base">schedule</span>
+                                            {{ reservation.course.duration }}
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="material-symbols-outlined text-base">payments</span>
+                                            ${{ reservation.course.price }}
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="material-symbols-outlined text-base">person</span>
+                                            {{ reservation.course.instructor.name|default:"TBA" }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="p-12 text-center">
+                            <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="material-symbols-outlined text-gray-400 text-3xl">scuba_diving</span>
+                            </div>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">No bookings yet</h3>
+                            <p class="mt-2 text-gray-500">Ready to dive in? Explore our courses!</p>
+                            <a href="{% url 'courses' %}" class="mt-6 inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary/90">
+                                Browse Courses
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
