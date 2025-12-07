@@ -55,7 +55,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",  # <--- تأكد أن هذا موجود
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    'aquasense.middleware.AdminRedirectMiddleware',
 ]
 
 ROOT_URLCONF = 'aquasense.urls'
@@ -145,7 +146,7 @@ cloudinary.config(
 RESEND_API_KEY = os.getenv('RESEND_API_KEY', 're_795aevhC_Gazmq9cbT9gidAW6n2SCvhRH')
 
 
-CSRF_TRUSTED_ORIGINS = ['https://aquasense-production-c635.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://aquasense-production-c635.up.railway.app', 'https://aquasense-production-c326.up.railway.app']
 
 # Logging Configuration
 LOGGING = {
