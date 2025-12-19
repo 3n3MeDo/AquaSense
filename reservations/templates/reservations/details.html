@@ -1,0 +1,180 @@
+{% extends 'reservations/base.html' %}
+{% load static %}
+
+{% block title %}{{ course.title }} - AquaSense{% endblock %}
+
+{% block content %}
+<div class="w-full">
+  <div
+    class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat items-center justify-center p-4 text-center"
+    data-alt="{{ course.title }}"
+    style='background-image: linear-gradient(rgba(10, 36, 99, 0.4) 0%, rgba(10, 36, 99, 0.6) 100%), url("{{ course.image.url }}");'>
+    <div class="flex flex-col gap-2">
+      <h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em] md:text-6xl">{{ course.title }}</h1>
+      <h2 class="text-white/90 text-lg font-normal leading-normal md:text-xl">Your Adventure Into the Depths Begins Here
+      </h2>
+    </div>
+  </div>
+</div>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+
+    <div class="lg:col-span-2">
+
+      <div class="flex flex-col gap-4">
+        <p class="text-gray-800 dark:text-gray-300 text-base font-normal leading-relaxed">
+          {{ course.description }}
+        </p>
+      </div>
+
+      <div class="mt-10">
+        <h2 class="text-gray-900 dark:text-white text-2xl font-bold leading-tight tracking-[-0.015em]">What's Included
+        </h2>
+        <ul class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <li class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-primary">check_circle</span>
+            <span class="text-gray-800 dark:text-gray-300">Full Equipment Rental</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-primary">check_circle</span>
+            <span class="text-gray-800 dark:text-gray-300">Certification Fees</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-primary">check_circle</span>
+            <span class="text-gray-800 dark:text-gray-300">Expert Instruction</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-primary">check_circle</span>
+            <span class="text-gray-800 dark:text-gray-300">Refreshments</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="mt-10">
+        <h2 class="text-gray-900 dark:text-white text-2xl font-bold leading-tight tracking-[-0.015em]">Instructor
+        </h2>
+        <div class="flex items-center gap-4 mt-4 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl border border-gray-100 dark:border-gray-800">
+            {% if course.instructor %}
+            <img class="w-16 h-16 rounded-full object-cover" src="{{ course.instructor.photo.url }}" alt="{{ course.instructor.name }}">
+            <div>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white">{{ course.instructor.name }}</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400">{{ course.instructor.specialization }}</p>
+            </div>
+            {% else %}
+            <p class="text-gray-500">Instructor to be assigned.</p>
+            {% endif %}
+        </div>
+      </div>
+
+    </div>
+
+    <div class="lg:col-span-1">
+      <div class="sticky top-24">
+        <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-800/50 p-6 shadow-lg">
+          <p class="text-4xl font-black text-gray-900 dark:text-white">${{ course.price }} <span
+              class="text-base font-normal text-gray-500 dark:text-gray-400">/person</span></p>
+          <div class="mt-6 space-y-4">
+            <div class="flex items-center justify-between text-sm">
+              <span class="font-bold text-gray-600 dark:text-gray-300">Duration:</span>
+              <span class="text-gray-800 dark:text-gray-300">{{ course.duration }}</span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="font-bold text-gray-600 dark:text-gray-300">Difficulty:</span>
+              <span class="text-gray-800 dark:text-gray-300">{{ course.difficulty }}</span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="font-bold text-gray-600 dark:text-gray-300">Location:</span>
+              <span class="text-gray-800 dark:text-gray-300">Marine Bay</span>
+            </div>
+          </div>
+          <a href="{% url 'book_course' course.id %}"
+            class="mt-8 flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary hover:bg-primary/90 text-white text-base font-bold leading-normal tracking-[0.015em]">
+            <span class="truncate">Book Now</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="bg-gray-100 dark:bg-background-dark/50 py-12 md:py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-center text-gray-900 dark:text-white text-3xl font-bold leading-tight tracking-[-0.015em]">Course
+      Gallery</h2>
+    <p class="text-center mt-2 text-gray-800 dark:text-gray-300">See what your adventure could look like.</p>
+    <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="overflow-hidden rounded-lg aspect-w-1 aspect-h-1"><img loading="lazy"
+          class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          data-alt="A student practices scuba skills in a pool with an instructor."
+          src="https://res.cloudinary.com/dp2ov37tr/image/upload/v1763854356/aquasense/aquasense/details_1.png" />
+      </div>
+      <div class="overflow-hidden rounded-lg aspect-w-1 aspect-h-1"><img loading="lazy"
+          class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          data-alt="A group of divers exploring a coral reef."
+          src="https://res.cloudinary.com/dp2ov37tr/image/upload/v1763854358/aquasense/aquasense/details_2.png" />
+      </div>
+      <div class="overflow-hidden rounded-lg aspect-w-1 aspect-h-1"><img loading="lazy"
+          class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          data-alt="A close-up shot of a sea turtle swimming gracefully."
+          src="https://res.cloudinary.com/dp2ov37tr/image/upload/v1763854357/aquasense/aquasense/details_3.png" />
+      </div>
+      <div class="overflow-hidden rounded-lg aspect-w-1 aspect-h-1"><img loading="lazy"
+          class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          data-alt="A newly certified diver proudly holding their PADI certification card."
+          src="https://res.cloudinary.com/dp2ov37tr/image/upload/v1763854356/aquasense/aquasense/details_4.png" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="py-12 md:py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-center text-gray-900 dark:text-white text-3xl font-bold leading-tight tracking-[-0.015em]">Reviews
+      from Our Divers</h2>
+    <div class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <div
+        class="bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-800 rounded-lg p-6 flex flex-col">
+        <div class="flex items-center text-primary mb-2">
+          <span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span
+            class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span
+            class="material-symbols-outlined">star</span>
+        </div>
+        <p class="text-gray-800 dark:text-gray-300 flex-grow">"An absolutely unforgettable experience! The instructors
+          were patient, knowledgeable, and made me feel safe the entire time. I went from being a complete novice to a
+          confident diver. Highly recommend!"</p>
+        <p class="font-bold text-gray-900 dark:text-white mt-4">- Sarah L.</p>
+      </div>
+
+      <div
+        class="bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-800 rounded-lg p-6 flex flex-col">
+        <div class="flex items-center text-primary mb-2">
+          <span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span
+            class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span
+            class="material-symbols-outlined">star</span>
+        </div>
+        <p class="text-gray-800 dark:text-gray-300 flex-grow">"The best decision I made on my vacation. The team is
+          professional and the dive sites are stunning. I saw so much marine life. I'm already planning my Advanced Open
+          Water course with them."</p>
+        <p class="font-bold text-gray-900 dark:text-white mt-4">- Michael B.</p>
+      </div>
+
+      <div
+        class="bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-800 rounded-lg p-6 flex flex-col">
+        <div class="flex items-center text-primary mb-2">
+          <span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span
+            class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span
+            class="material-symbols-outlined">star</span>
+        </div>
+        <p class="text-gray-800 dark:text-gray-300 flex-grow">"From start to finish, the process was seamless. The
+          equipment was top-notch, and the small group sizes meant we got a lot of personal attention. A truly five-star
+          operation."</p>
+        <p class="font-bold text-gray-900 dark:text-white mt-4">- Emily C.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

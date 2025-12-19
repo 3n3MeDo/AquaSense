@@ -1,0 +1,118 @@
+[
+{
+  "model": "reservations.instructor",
+  "pk": 1,
+  "fields": {
+    "name": "Jack Marlin",
+    "bio": "Expert in deep sea diving with 15 years of experience.",
+    "photo": "image/upload/https://randomuser.me/api/portraits/men/32.jpg",
+    "specialization": "Wreck Diving"
+  }
+},
+{
+  "model": "reservations.instructor",
+  "pk": 2,
+  "fields": {
+    "name": "Sarah Coral",
+    "bio": "Marine biologist and photography expert.",
+    "photo": "image/upload/https://randomuser.me/api/portraits/women/44.jpg",
+    "specialization": "Underwater Photography"
+  }
+},
+{
+  "model": "reservations.course",
+  "pk": 1,
+  "fields": {
+    "title": "Open Water Diver Certification",
+    "slug": "open-water-diver",
+    "description": "Your first step into the underwater world. Get certified to dive anywhere! This course covers basic skills and safety procedures.",
+    "price": "499.00",
+    "duration": "3 Days",
+    "difficulty": "Beginner",
+    "image": "image/upload/https://res.cloudinary.com/dp2ov37tr/image/upload/v1763854348/aquasense/aquasense/open_water.png",
+    "instructor": 1,
+    "is_popular": true,
+    "created_at": "2025-12-07T18:53:05.858Z"
+  }
+},
+{
+  "model": "reservations.course",
+  "pk": 2,
+  "fields": {
+    "title": "Whale Shark Encounter",
+    "slug": "whale-shark-encounter",
+    "description": "A once-in-a-lifetime chance to swim alongside the gentle giants of the ocean. Snorkeling experience required.",
+    "price": "250.00",
+    "duration": "1 Day",
+    "difficulty": "Beginner",
+    "image": "image/upload/https://res.cloudinary.com/dp2ov37tr/image/upload/v1763854352/aquasense/aquasense/whale_shark.png",
+    "instructor": 2,
+    "is_popular": true,
+    "created_at": "2025-12-07T18:53:05.868Z"
+  }
+},
+{
+  "model": "reservations.course",
+  "pk": 3,
+  "fields": {
+    "title": "Cenote Cavern Dive",
+    "slug": "cenote-cavern-dive",
+    "description": "Explore the breathtaking underwater cave systems of the Yucatan Peninsula. Requires Open Water certification.",
+    "price": "180.00",
+    "duration": "4 Hours",
+    "difficulty": "Intermediate",
+    "image": "image/upload/https://res.cloudinary.com/dp2ov37tr/image/upload/v1763854354/aquasense/aquasense/cenote.png",
+    "instructor": 1,
+    "is_popular": false,
+    "created_at": "2025-12-07T18:53:05.878Z"
+  }
+},
+{
+  "model": "reservations.course",
+  "pk": 4,
+  "fields": {
+    "title": "Reef Shark Exploration",
+    "slug": "reef-shark-exploration",
+    "description": "Observe magnificent reef sharks in their natural habitat. A thrilling adventure for certified divers.",
+    "price": "220.00",
+    "duration": "4 Hours",
+    "difficulty": "Intermediate",
+    "image": "image/upload/https://res.cloudinary.com/dp2ov37tr/image/upload/v1763854350/aquasense/aquasense/coral_reef.png",
+    "instructor": 2,
+    "is_popular": false,
+    "created_at": "2025-12-07T18:53:05.887Z"
+  }
+},
+{
+  "model": "reservations.course",
+  "pk": 5,
+  "fields": {
+    "title": "Underwater Photography Course",
+    "slug": "underwater-photography",
+    "description": "Learn the art of capturing stunning images beneath the waves. Bring your own camera or rent one from us.",
+    "price": "350.00",
+    "duration": "2 Days",
+    "difficulty": "Beginner",
+    "image": "image/upload/https://res.cloudinary.com/dp2ov37tr/image/upload/v1763854352/aquasense/aquasense/photography.png",
+    "instructor": 2,
+    "is_popular": false,
+    "created_at": "2025-12-07T18:53:05.895Z"
+  }
+},
+{
+  "model": "reservations.course",
+  "pk": 6,
+  "fields": {
+    "title": "Advanced Wreck Diving",
+    "slug": "advanced-wreck-diving",
+    "description": "Explore historic shipwrecks and learn advanced penetration techniques. Advanced Open Water required.",
+    "price": "450.00",
+    "duration": "3 Days",
+    "difficulty": "Advanced",
+    "image": "image/upload/https://res.cloudinary.com/dp2ov37tr/image/upload/v1763854353/aquasense/aquasense/wreck_diving.png",
+    "instructor": 1,
+    "is_popular": false,
+    "created_at": "2025-12-07T18:53:05.903Z"
+  }
+}
+]

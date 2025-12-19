@@ -1,0 +1,83 @@
+{% extends 'reservations/base.html' %}
+{% load static %}
+
+{% block title %}Courses & Excursions - AquaSense{% endblock %}
+
+{% block content %}
+<div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+  <div class="mb-8">
+    <h1 class="text-center text-4xl font-black tracking-tighter text-gray-900 dark:text-white sm:text-5xl">Our Courses &
+      Excursions</h1>
+  </div>
+      <div class="flex flex-col md:flex-row gap-4 mb-6">
+        <div class="relative flex-1">
+          <form method="GET" action="{% url 'courses' %}" class="flex gap-2 w-full">
+            <div class="relative flex-grow">
+              <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">search</span>
+              <input type="text" name="q" value="{{ search_query|default:'' }}" 
+                class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary/50 outline-none transition-all"
+                placeholder="Search courses...">
+            </div>
+            
+            <select name="difficulty" class="px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary/50 outline-none cursor-pointer">
+              <option value="">All Levels</option>
+              <option value="Beginner" {% if selected_difficulty == 'Beginner' %}selected{% endif %}>Beginner</option>
+              <option value="Intermediate" {% if selected_difficulty == 'Intermediate' %}selected{% endif %}>Intermediate</option>
+              <option value="Advanced" {% if selected_difficulty == 'Advanced' %}selected{% endif %}>Advanced</option>
+            </select>
+
+            <select name="price_range" class="px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary/50 outline-none cursor-pointer">
+              <option value="">All Prices</option>
+              <option value="low" {% if selected_price == 'low' %}selected{% endif %}>Under $100</option>
+              <option value="mid" {% if selected_price == 'mid' %}selected{% endif %}>$100 - $500</option>
+              <option value="high" {% if selected_price == 'high' %}selected{% endif %}>Above $500</option>
+            </select>
+
+            <button type="submit" class="px-6 py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
+              Filter
+            </button>
+          </form>
+        </div>
+      </div>
+  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    {% for course in courses %}
+    <a href="{% url 'details' course.slug %}"
+      class="group flex flex-col overflow-hidden rounded-xl bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:bg-gray-800">
+      <img class="h-48 w-full object-cover" loading="lazy"
+        data-alt="{{ course.title }} - {{ course.description|truncatechars:50 }}"
+        src="{{ course.image.url }}" />
+      <div class="flex flex-1 flex-col p-5">
+        <h3 class="text-lg font-bold text-gray-900 dark:text-white">{{ course.title }}</h3>
+        <p class="mt-2 flex-grow text-sm text-gray-600 dark:text-gray-300">{{ course.description|truncatechars:100 }}</p>
+        <p class="mt-4 text-xl font-black text-primary">${{ course.price }}</p>
+      </div>
+    </a>
+    {% empty %}
+    <div class="col-span-full py-12 text-center">
+        <h3 class="text-xl font-medium text-gray-900 dark:text-white">No courses available at the moment.</h3>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="mt-12 flex justify-center">
+    <nav aria-label="Pagination" class="inline-flex items-center space-x-2 rounded-lg">
+      <a class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/80 dark:text-gray-400 dark:hover:bg-gray-700/80"
+        href="#">
+        <span class="material-symbols-outlined text-xl">chevron_left</span>
+      </a>
+      <a class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-sm font-medium text-white"
+        href="#">1</a>
+      <a class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-200/80 dark:text-gray-300 dark:hover:bg-gray-700/80"
+        href="#">2</a>
+      <a class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-200/80 dark:text-gray-300 dark:hover:bg-gray-700/80"
+        href="#">3</a>
+      <span class="inline-flex h-10 w-10 items-center justify-center text-sm font-medium text-gray-500">...</span>
+      <a class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-200/80 dark:text-gray-300 dark:hover:bg-gray-700/80"
+        href="#">8</a>
+      <a class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/80 dark:text-gray-400 dark:hover:bg-gray-700/80"
+        href="#">
+        <span class="material-symbols-outlined text-xl">chevron_right</span>
+      </a>
+    </nav>
+  </div>
+</div>
+{% endblock %}
